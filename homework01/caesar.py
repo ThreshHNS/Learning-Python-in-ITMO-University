@@ -1,4 +1,4 @@
-def encrypt_caesar(plaintext):
+def encrypt_caesar(plaintext, shift):
     """
     Encrypts plaintext using a Caesar cipher.
 
@@ -16,11 +16,11 @@ def encrypt_caesar(plaintext):
     for index, value in enumerate(text):
         if value.isalpha():
             base = upper if value.isupper() else lower
-            text[index] = chr((ord(value) - base + 3) % 26 + base)
+            text[index] = chr((ord(value) - base + shift) % 26 + base)
     ciphertext = ''.join(text)
     return ciphertext
 
-def decrypt_caesar(ciphertext):
+def decrypt_caesar(ciphertext, shift):
     """
     Decrypts a ciphertext using a Caesar cipher.
 
@@ -38,6 +38,6 @@ def decrypt_caesar(ciphertext):
     for index, value in enumerate(text):
         if value.isalpha():
             base = upper if value.isupper() else lower
-            text[index] = chr((ord(value) - base - 3) % 26 + base)
+            text[index] = chr((ord(value) - base - shift) % 26 + base)
     ciphertext = ''.join(text)
     return ciphertext

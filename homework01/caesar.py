@@ -40,4 +40,4 @@ def decrypt_caesar(ciphertext):
             base = upper if value.isupper() else lower
             text[index] = chr((ord(value) - base - 3) % 26 + base)
     ciphertext = ''.join(text)
-    print(ciphertext)
+    return ciphertext

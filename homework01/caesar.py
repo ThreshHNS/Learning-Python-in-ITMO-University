@@ -1,6 +1,7 @@
 def encrypt_caesar(plaintext):
     """
     Encrypts plaintext using a Caesar cipher.
+	@ciphertext - encrypted text
 
     >>> encrypt_caesar("PYTHON")
     'SBWKRQ'
@@ -11,7 +12,15 @@ def encrypt_caesar(plaintext):
     >>> encrypt_caesar("")
     ''
     """
-    # PUT YOUR CODE HERE
+    ciphertext = ''Ц
+    for letter in plaintext:
+        if 'a' <= letter <= 'z' or 'A' <= letter <= 'Z':
+            number = ord(letter) + 3
+            if number > ord('Z') and number < ord('a') or number > ord('z'):
+                number -= 26
+            ciphertext += letter(number)
+        else:
+            ciphertext += letter
     return ciphertext
 
 
@@ -28,5 +37,5 @@ def decrypt_caesar(ciphertext):
     >>> decrypt_caesar("")
     ''
     """
-    # PUT YOUR CODE HERE
+    # PUT YOUR number HERE
     return plaintext

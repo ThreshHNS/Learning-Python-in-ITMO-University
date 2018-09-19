@@ -16,11 +16,19 @@ def encrypt_caesar(plaintext, shift):
     for index, value in enumerate(text):
         if value.isalpha():
             base = upper if value.isupper() else lower
+<<<<<<< HEAD
             text[index] = chr((ord(value) - base + shift) % 26 + base)
     ciphertext = ''.join(text)
     return ciphertext
 
 def decrypt_caesar(ciphertext, shift):
+=======
+            text[index] = chr((ord(value) - base + 3) % 26 + base)
+    ciphertext = ''.join(text)
+    return ciphertext
+
+def decrypt_caesar(ciphertext):
+>>>>>>> feature/caesar
     """
     Decrypts a ciphertext using a Caesar cipher.
 
@@ -38,6 +46,10 @@ def decrypt_caesar(ciphertext, shift):
     for index, value in enumerate(text):
         if value.isalpha():
             base = upper if value.isupper() else lower
+<<<<<<< HEAD
             text[index] = chr((ord(value) - base - shift) % 26 + base)
+=======
+            text[index] = chr((ord(value) - base - 3) % 26 + base)
+>>>>>>> feature/caesar
     ciphertext = ''.join(text)
     return ciphertext

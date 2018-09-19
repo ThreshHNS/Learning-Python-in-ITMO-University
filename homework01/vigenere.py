@@ -9,7 +9,14 @@ def encrypt_vigenere(plaintext, keyword):
     >>> encrypt_vigenere("ATTACKATDAWN", "LEMON")
     'LXFOPVEFRNHR'
     """
-    # PUT YOUR CODE HERE
+    upper, lower = ord("A"), ord("a")
+    text = list(plaintext)
+    for index, value in enumerate(text):
+        if value.isalpha():
+            base = upper if value.isupper() else lower
+            shift = ord(keyword[index % len(keyword)]) - base
+            text[index] = chr((ord(value) - base + shift) % 26 + base)
+    ciphertext = ''.join(text)
     return ciphertext
 
 

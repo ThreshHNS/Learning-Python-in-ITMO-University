@@ -45,8 +45,13 @@ def multiplicative_inverse(e, phi):
     >>> multiplicative_inverse(7, 40)
     23
     """
-    # PUT YOUR CODE HERE
-    pass
+    inversed =  0
+    for i in range(phi):
+        if i * e % phi == 1:
+            inversed = i
+            break
+
+    return inversed
 
 
 def generate_keypair(p, q):

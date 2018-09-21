@@ -12,9 +12,13 @@ def is_prime(n):
     >>> is_prime(8)
     False
     """
-    # PUT YOUR CODE HERE
-    pass
-
+    prime = True
+    for i in range(2, n):
+        if n % i == 0:
+            prime = False
+            break
+    
+    return prime
 
 def gcd(a, b):
     """
@@ -25,8 +29,12 @@ def gcd(a, b):
     >>> gcd(3, 7)
     1
     """
-    # PUT YOUR CODE HERE
-    pass
+    while a != b:
+        if a > b:
+            a = a - b
+        else:
+            b = b - a        
+    return a 
 
 
 def multiplicative_inverse(e, phi):

@@ -1,6 +1,6 @@
 # Learning-Python-in-ITMO-University
 
-![Title](1.png)
+![Title](snake.png)
 
 ## Учим Python в ИТМО по материалам https://dementiy.github.io
 

@@ -34,6 +34,13 @@ def gcd(a, b):
     return a 
 
 
+def egcd(a, b):
+    if a == 0:
+        return (b, 0, 1)
+    else:
+        g, x, y = egcd(b % a, a)
+        return (g, y - (b // a) * x, x)
+
 def multiplicative_inverse(e, phi):
     """
     Euclid's extended algorithm for finding the multiplicative
@@ -42,14 +49,9 @@ def multiplicative_inverse(e, phi):
     >>> multiplicative_inverse(7, 40)
     23
     """
-    inversed =  0
-    for i in range(phi):
-        if i * e % phi == 1:
-            inversed = i
-            break
-
-    return inversed
-
+    g, x, _ = egcd(e, phi)
+    if g == 1:
+        return (x % phi)
 
 def generate_keypair(p, q):
     if not (is_prime(p) and is_prime(q)):

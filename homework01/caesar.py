@@ -1,4 +1,4 @@
-def encrypt_caesar(plaintext, shift):
+def encrypt_caesar(plaintext: str, shift: int) -> str:
     """
     Encrypts plaintext using a Caesar cipher.
 
@@ -20,7 +20,7 @@ def encrypt_caesar(plaintext, shift):
     ciphertext = ''.join(text)
     return ciphertext
 
-def decrypt_caesar(ciphertext, shift):
+def decrypt_caesar(ciphertext: str, shift: int): -> str:
     """
     Decrypts a ciphertext using a Caesar cipher.
 

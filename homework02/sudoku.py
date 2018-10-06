@@ -25,7 +25,7 @@ def group(values, n):
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    pass
+    return [values[i:i+n] for i in range(0, len(values), n)]
 
 
 def get_row(values, pos):
@@ -38,7 +38,7 @@ def get_row(values, pos):
     >>> get_row([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (2, 0))
     ['.', '8', '9']
     """
-    pass
+    return values[pos[0]]
 
 
 def get_col(values, pos):
@@ -51,7 +51,8 @@ def get_col(values, pos):
     >>> get_col([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']], (0, 2))
     ['3', '6', '9']
     """
-    pass
+    col = pos[1]
+    return [values[row][col] for row in range(len(values))]
 
 
 def get_block(values, pos):
@@ -65,7 +66,13 @@ def get_block(values, pos):
     >>> get_block(grid, (8, 8))
     ['2', '8', '.', '.', '.', '5', '.', '7', '9']
     """
-    pass
+    block = []
+    br = (pos[0] // 3) * 3
+    bc = (pos[1] // 3) * 3
+    for i in range(3):
+        for j in range(3):
+            block.append(values[br + i][bc + j])
+    return block 
 
 
 def find_empty_positions(grid):
@@ -78,7 +85,10 @@ def find_empty_positions(grid):
     >>> find_empty_positions([['1', '2', '3'], ['4', '5', '6'], ['.', '8', '9']])
     (2, 0)
     """
-    pass
+    for r in range(len(grid)):
+        for c in range(len(grid)):
+            if grid[r][c] == ".":
+                return(r, c)          
 
 
 def find_possible_values(grid, pos):
@@ -92,7 +102,14 @@ def find_possible_values(grid, pos):
     >>> values == {'2', '5', '9'}
     True
     """
-    pass
+    rv = get_row(grid,pos)
+    bv = get_block(grid,pos)
+    cv = get_col(grid,pos)
+    possible_values = []
+    for m in range(1,10):
+        if not str(m) in rv and not str(m) in cv and not str(m) in bv:
+            possible_values.append(str(m))
+    return possible_values    
 
 
 def solve(grid):
@@ -141,10 +158,8 @@ def generate_sudoku(N):
     """
     pass
 
-
+    
 if __name__ == '__main__':
-    for fname in ['puzzle1.txt', 'puzzle2.txt', 'puzzle3.txt']:
-        grid = read_sudoku(fname)
-        display(grid)
-        solution = solve(grid)
-        display(solution)
+    s = input()
+    n = input()
+    get_row(s, n)

@@ -53,7 +53,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     if g == 1:
         return (x % phi)
 
-def generate_keypair(p, q):
+def generate_keypair(p: int, q: int) -> str:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError('Both numbers must be prime.')
     elif p == q:

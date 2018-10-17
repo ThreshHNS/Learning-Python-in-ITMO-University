@@ -137,10 +137,23 @@ def solve(grid):
             grid[epos[0]][epos[1]] = '.'    
 
 def check_solution(solution):
-    """ Если решение solution верно, то вернуть True, в противном случае False """
-    # TODO: Add doctests with bad puzzles
-    pass
-
+    """ Если решение solution верно, то вернуть True, в противном случае False """   
+    for i in range(9):
+        for j in range(9):
+            pos = (i, j)
+            row = get_row(solution, pos)
+            for number in row:
+                if row.count(number) != 1: 
+                    return False
+            col = get_col(solution, pos)
+            for number in col:
+                if col.count(number) != 1:
+                    return False
+            block = get_block(solution, pos)
+            for number in block:
+                if block.count(number) != 1:
+                    return False
+    return True
 
 def generate_sudoku(N):
     """ Генерация судоку заполненного на N элементов
@@ -168,6 +181,8 @@ def generate_sudoku(N):
 
     
 if __name__ == '__main__':
-    s = input()
-    n = input()
-    get_row(s, n)
+    for fname in ['puzzle1.txt', 'puzzle2.txt', 'puzzle3.txt']:
+        grid = read_sudoku(fname)
+        display(grid)
+        solution = solve(grid)
+        display(solution)

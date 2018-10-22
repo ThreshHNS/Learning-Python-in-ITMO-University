@@ -14,8 +14,9 @@ def is_prime(n: int) -> bool:
     """
     for i in range(2, round(n ** .5)):
         if n % i == 0:
-        	return False
+            return False
     return True
+
 
 def gcd(a: int, b: int) -> int:
     """
@@ -30,8 +31,8 @@ def gcd(a: int, b: int) -> int:
         if a > b:
             a = a - b
         else:
-            b = b - a        
-    return a 
+            b = b - a
+    return a
 
 
 def egcd(a: int, b: int) -> int:
@@ -40,6 +41,7 @@ def egcd(a: int, b: int) -> int:
     else:
         g, x, y = egcd(b % a, a)
         return (g, y - (b // a) * x, x)
+
 
 def multiplicative_inverse(e: int, phi: int) -> int:
     """
@@ -53,6 +55,7 @@ def multiplicative_inverse(e: int, phi: int) -> int:
     if g == 1:
         return (x % phi)
 
+
 def generate_keypair(p: int, q: int) -> tuple:
     if not (is_prime(p) and is_prime(q)):
         raise ValueError('Both numbers must be prime.')
@@ -61,7 +64,7 @@ def generate_keypair(p: int, q: int) -> tuple:
 
     n = p*q
 
-    phi=(p-1)*(q-1)
+    phi = (p-1)*(q-1)
 
     # Choose an integer e such that e and phi(n) are coprime
     e = random.randrange(1, phi)

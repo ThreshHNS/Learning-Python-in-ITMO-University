@@ -1,3 +1,6 @@
+import random
+
+
 def read_sudoku(filename):
     """ Прочитать Судоку из указанного файла """
     digits = [c for c in open(filename).read() if c in '123456789.']
@@ -105,10 +108,10 @@ def find_possible_values(grid, pos):
     rv = get_row(grid,pos)
     bv = get_block(grid,pos)
     cv = get_col(grid,pos)
-    possible_values = []
+    possible_values = set()
     for m in range(1,10):
         if not str(m) in rv and not str(m) in cv and not str(m) in bv:
-            possible_values.append(str(m))
+            possible_values.add(str(m))
     return possible_values    
 
 
@@ -164,12 +167,6 @@ def generate_sudoku(N):
     >>> solution = solve(grid)
     >>> check_solution(solution)
     True
-    >>> grid = generate_sudoku(1000)
-    >>> sum(1 for row in grid for e in row if e == '.')
-    0
-    >>> solution = solve(grid)
-    >>> check_solution(solution)
-    True
     >>> grid = generate_sudoku(0)
     >>> sum(1 for row in grid for e in row if e == '.')
     81
@@ -177,6 +174,9 @@ def generate_sudoku(N):
     >>> check_solution(solution)
     True
     """
+    if N > 81:
+        raise ValueError("N must be less or equal to 81")
+
     s = 1
     grid = [['.']*9 for _ in range(9)]
     grid = solve(grid)

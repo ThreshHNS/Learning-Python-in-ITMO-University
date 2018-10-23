@@ -13,7 +13,8 @@ def display(values):
     width = 2
     line = '+'.join(['-' * (width * 3)] * 3)
     for row in range(9):
-        print(''.join(values[row][col].center(width) + ('|' if str(col) in '25' else '') for col in range(9)))
+        print(''.join(values[row][col].center(
+            width) + ('|' if str(col) in '25' else '') for col in range(9)))
         if str(row) in '25':
             print(line)
     print()
@@ -28,7 +29,7 @@ def group(values, n):
     >>> group([1,2,3,4,5,6,7,8,9], 3)
     [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
     """
-    return [values[i:i+n] for i in range(0, len(values), n)]
+    return [values[i:i + n] for i in range(0, len(values), n)]
 
 
 def get_row(values, pos):
@@ -75,7 +76,7 @@ def get_block(values, pos):
     for i in range(3):
         for j in range(3):
             block.append(values[br + i][bc + j])
-    return block 
+    return block
 
 
 def find_empty_positions(grid):
@@ -91,7 +92,7 @@ def find_empty_positions(grid):
     for r in range(len(grid)):
         for c in range(len(grid)):
             if grid[r][c] == ".":
-                return(r, c)          
+                return(r, c)
 
 
 def find_possible_values(grid, pos):
@@ -105,14 +106,14 @@ def find_possible_values(grid, pos):
     >>> values == {'2', '5', '9'}
     True
     """
-    rv = get_row(grid,pos)
-    bv = get_block(grid,pos)
-    cv = get_col(grid,pos)
+    rv = get_row(grid, pos)
+    bv = get_block(grid, pos)
+    cv = get_col(grid, pos)
     possible_values = set()
-    for m in range(1,10):
+    for m in range(1, 10):
         if not str(m) in rv and not str(m) in cv and not str(m) in bv:
             possible_values.add(str(m))
-    return possible_values    
+    return possible_values
 
 
 def solve(grid):
@@ -133,20 +134,21 @@ def solve(grid):
         return grid
     pvol = find_possible_values(grid, epos)
     for i in pvol:
-        grid[epos[0]][epos[1]] = i 
+        grid[epos[0]][epos[1]] = i
         if solve(grid):
             return grid
         else:
-            grid[epos[0]][epos[1]] = '.'    
+            grid[epos[0]][epos[1]] = '.'
+
 
 def check_solution(solution):
-    """ Если решение solution верно, то вернуть True, в противном случае False """   
+    """ Если решение solution верно, то вернуть True, в противном случае False """
     for i in range(9):
         for j in range(9):
             pos = (i, j)
             row = get_row(solution, pos)
             for number in row:
-                if row.count(number) != 1: 
+                if row.count(number) != 1:
                     return False
             col = get_col(solution, pos)
             for number in col:
@@ -157,6 +159,7 @@ def check_solution(solution):
                 if block.count(number) != 1:
                     return False
     return True
+
 
 def generate_sudoku(N):
     """ Генерация судоку заполненного на N элементов
@@ -178,7 +181,7 @@ def generate_sudoku(N):
         raise ValueError("N must be less or equal to 81")
 
     s = 1
-    grid = [['.']*9 for _ in range(9)]
+    grid = [['.'] * 9 for _ in range(9)]
     grid = solve(grid)
     while s <= (81 - N):
         i = random.randint(0, 8)
@@ -187,7 +190,8 @@ def generate_sudoku(N):
             grid[i][j] = '.'
             s += 1
     return grid
-    
+
+
 if __name__ == '__main__':
     for fname in ['puzzle1.txt', 'puzzle2.txt', 'puzzle3.txt']:
         grid = read_sudoku(fname)

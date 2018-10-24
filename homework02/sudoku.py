@@ -1,6 +1,7 @@
 import random
 from typing import Any, Union
 
+
 def read_sudoku(filename: str) -> list:
     """ Прочитать Судоку из указанного файла """
     digits = [c for c in open(filename).read() if c in '123456789.']
@@ -140,6 +141,7 @@ def solve(grid: list) -> Any:
         else:
             grid[epos[0]][epos[1]] = '.'
     return None
+
 
 def check_solution(solution: list) -> bool:
     """ Если решение solution верно, то вернуть True, в противном случае False """

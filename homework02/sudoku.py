@@ -1,5 +1,5 @@
 import random
-from typing import Any, Union
+from typing import Any, Union, List
 
 
 def read_sudoku(filename: str) -> list:
@@ -9,7 +9,7 @@ def read_sudoku(filename: str) -> list:
     return grid
 
 
-def display(values: list):
+def display(values: list) -> None:
     """Вывод Судоку """
     width = 2
     line = '+'.join(['-' * (width * 3)] * 3)
@@ -21,7 +21,7 @@ def display(values: list):
     print()
 
 
-def group(values: list, n: int) -> list:
+def group(values: list, n: int) -> Union[List[Any], Any]:
     """
     Сгруппировать значения values в список, состоящий из списков по n элементов
 
@@ -33,7 +33,7 @@ def group(values: list, n: int) -> list:
     return [values[i:i + n] for i in range(0, len(values), n)]
 
 
-def get_row(values: list, pos: tuple) -> list:
+def get_row(values: list, pos: tuple) -> Any:
     """ Возвращает все значения для номера строки, указанной в pos
 
     >>> get_row([['1', '2', '.'], ['4', '5', '6'], ['7', '8', '9']], (0, 0))

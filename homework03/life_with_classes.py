@@ -61,14 +61,14 @@ class GameOfLife:
     def draw_cell_list(self):
         for i in range(self.cell_height):
             for g in range(self.cell_width):
-                x = g * self.cell_size
-                y = i * self.cell_size
+                x = g * self.cell_size + 1
+                y = i * self.cell_size + 1
                 if self.clist.grid[i][g].is_alive():
                     pygame.draw.rect(self.screen, pygame.Color(
-                        'green'), (x, y, self.cell_size, self.cell_size))
+                        'green'), (x, y, self.cell_size-1, self.cell_size-1))
                 else:
                     pygame.draw.rect(self.screen, pygame.Color(
-                        'white'), (x, y, self.cell_size, self.cell_size))
+                        'white'), (x, y, self.cell_size-1, self.cell_size-1))
 
 
 class Cell:

@@ -1,9 +1,9 @@
 from api import get_friends
 import igraph
 import time
+from typing import Union, List, Tuple
 
-
-def get_network(user_id, as_edgelist=True):
+def get_network(user_id: list, as_edgelist: bool=True) -> Union[List[List[int]], List[Tuple[int, int]]]:
 
     users_ids = get_friends(user_id)['response']['items']
     edges = []
@@ -29,7 +29,7 @@ def get_network(user_id, as_edgelist=True):
         return matrix
 
 
-def plot_graph(user_id):
+def plot_graph(user_id: list) -> None:
 
     surnames = get_friends(user_id, 'last_name')
     vertices = [surnames['response']['items'][i]['last_name']

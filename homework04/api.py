@@ -2,7 +2,7 @@ import requests
 import time
 
 from config import VK_CONFIG, PLOTLY_CONFIG
-
+from api_models import Message
 
 def get(url, params={}, timeout=5, max_retries=5, backoff_factor=0.3):
     """ Выполнить GET-запрос
@@ -42,7 +42,7 @@ def get_friends(user_id, fields):
     }
 
     url = f"{VK_CONFIG['domain']}/friends.get"
-    response = requests.get(url, params=query_params)
+    response = get(url, params=query_params)
     return response.json()
 
 
@@ -59,14 +59,30 @@ def messages_get_history(user_id, offset=0, count=20):
     assert offset >= 0, "user_id must be positive integer"
     assert count >= 0, "user_id must be positive integer"
 
+    messages = []
+    max_count = 200
     query_params = {
         'access_token': VK_CONFIG['access_token'],
         'v': VK_CONFIG['version'],
         'user_id': user_id,
-        'offest': offset,
-        'count': count
+        'offset': offset,
+        'count': min(max_count, count)
     }
 
     url = f"{VK_CONFIG['domain']}/messages.getHistory"
-    response = requests.get(url, params=query_params)
-    return response.json()
+
+    while count > 0:
+
+        response = get(url, params=query_params)
+        count -= min(count, max_count)
+        query_params['offset'] += 200
+        query_params['count'] = min(count, max_count)
+        messages += response.json()['response']['items']
+        time.sleep(0.4)
+
+    messages_list = [Message(**message) for message in messages]
+    return messages_list
+
+if __name__ == '__main__':
+    s = messages_get_history(53369046, count=250)
+    print(count_dates_from_messages(s))

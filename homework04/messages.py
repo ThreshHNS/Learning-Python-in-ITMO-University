@@ -1,8 +1,5 @@
-from collections import Counter
 import datetime
 import plotly
-import plotly.plotly as py
-import plotly.graph_objs as go
 from typing import List, Tuple
 
 from api import messages_get_history
@@ -29,7 +26,17 @@ def count_dates_from_messages(messages: List[Message]) -> Tuple[Dates, Frequenci
 
     :param messages: список сообщений
     """
-    # PUT YOUR CODE HERE
+    date = []
+    frequencies = []
+    for message in messages:
+        message.date = fromtimestamp(message.date)
+        date.append(message.date)
+        count = 0
+        for mes in messages:
+            if message.date == mes.date:
+                count += 1       
+        frequencies.append(count)    
+    return date, frequencies
 
 
 def plotly_messages_freq(dates: Dates, freq: Frequencies) -> None:
@@ -38,4 +45,5 @@ def plotly_messages_freq(dates: Dates, freq: Frequencies) -> None:
     :param date: список дат
     :param freq: число сообщений в соответствующую дату
     """
-    # PUT YOUR CODE HERE
+    data = [plotly.graph_objs.Scatter(x=dates, y=freq)]
+    plotly.plotly.plot(data)

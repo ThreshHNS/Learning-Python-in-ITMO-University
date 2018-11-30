@@ -86,14 +86,14 @@ class GameOfLife:
         """
         for i in range(len(rects)):
             for g in range(len(rects[i])):
-                x = g * self.cell_size
-                y = i * self.cell_size
+                x = g * self.cell_size + 1
+                y = i * self.cell_size + 1
                 if rects[i][g]:
                     pygame.draw.rect(self.screen, pygame.Color(
-                        'green'), (x, y, self.cell_size, self.cell_size))
+                        'green'), (x, y, self.cell_size - 1, self.cell_size - 1))
                 else:
                     pygame.draw.rect(self.screen, pygame.Color(
-                        'white'), (x, y, self.cell_size, self.cell_size))
+                        'white'), (x, y, self.cell_size - 1, self.cell_size - 1))
 
     def get_neighbours(self, cell: Tuple) -> Neighbours:
         """ Вернуть список соседей для указанной ячейки

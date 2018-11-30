@@ -1,9 +1,8 @@
 from api import get_friends
-import igraph
 import time
 
 
-def get_network(user_id: int, as_edgelist: bool=True) -> list:
+def get_network(user_id, as_edgelist=True) -> list:
     friends = get_friends(user_id, '')
     links = []
     matrix = [[0] * len(friends) for _ in range(len(friends))]
@@ -18,7 +17,7 @@ def get_network(user_id: int, as_edgelist: bool=True) -> list:
             for k, second_friend in enumerate(friends):
                 if first_friend == second_friend:
                     links.append((i, k))
-                    matrix[i, k] = 1
+                    matrix[i][k] = 1
 
     return links if as_edgelist else matrix
 

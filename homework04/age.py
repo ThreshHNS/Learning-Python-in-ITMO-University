@@ -14,8 +14,7 @@ def age_predict(user_id: int) -> int:
     assert user_id > 0, "user_id must be positive integer"
     friends = get_friends(user_id, 'bdate')
     age_list = []
-
-    for friend in friends['response']['items']:
+    for friend in friends:
     	person = User(**friend)
     	if person.bdate and len(person.bdate) > 8:
     		time_now = datetime.now()
@@ -23,5 +22,5 @@ def age_predict(user_id: int) -> int:
     		age = (time_now - time_bdate)
     		age_list.append(int(age.days // 365.25))
 
-    return int(median(age_list)) if age_list else None
+    return median(age_list) if age_list else None
 

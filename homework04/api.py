@@ -43,7 +43,7 @@ def get_friends(user_id, fields=''):
 
     url = f"{VK_CONFIG['domain']}/friends.get"
     response = get(url, params=query_params)
-    return response.json()
+    return response.json()['response']['items']
 
 
 def messages_get_history(user_id, offset=0, count=20):
@@ -82,7 +82,3 @@ def messages_get_history(user_id, offset=0, count=20):
 
     messages_list = [Message(**message) for message in messages]
     return messages_list
-
-if __name__ == '__main__':
-    s = messages_get_history(53369046, count=250)
-    print(count_dates_from_messages(s))

@@ -4,31 +4,26 @@ import time
 
 
 def get_network(user_id: int, as_edgelist: bool=True) -> list:
-    users_ids = get_friends(user_id)['response']['items']
-    edges = []
-    matrix = [[0] * len(users_ids) for i in range(len(users_ids))]
+    friends = get_friends(user_id, '')
+    links = []
+    for i, friend in enumerate(friends):
+        first_friends = []
+        try:
+            first_friends = get_friends(friend, '')
+        except BaseException:
+            pass
+        time.sleep(0.34)
+        for j, first_friend in enumerate(first_friends):
+            for k, second_friend in enumerate(friends):
+                if first_friend == second_friend:
+                    links.append((i, k))
+    return links
 
-    for friend1 in range(len(users_ids)):
-        response = get_friends(users_ids[user1])
-        friends = response
-        for friend2 in range(friend + 1, len(users_ids)):
-            if users_ids[friend2] in friends:
-                if as_edgelist:
-                    edges.append((friend1, friend2))
-                else:
-                    matrix[friend1][friend2] = 1
-                    matrix[friend2][friend1] = 1
-        time.sleep(0.4)
-
-    if as_edgelist:
-        return edges
-
-    return matrix
 
 
 def plot_graph(user_id: int) -> None:
     surnames = get_friends(user_id, 'last_name')
-    vertices = [i['last_name'] for i in surnames['response']['items']]
+    vertices = [i['last_name'] for i in surnames]
     edges = get_network(user_id, True)
 
     g = igraph.Graph(vertex_attrs={"shape": "circle",

@@ -2,7 +2,7 @@ from api import get_friends
 import time
 
 
-def get_network(user_id, as_edgelist=True) -> list:
+def get_network(user_id: int, as_edgelist: bool=True) -> list:
     friends = get_friends(user_id, '')
     links = []
     matrix = [[0] * len(friends) for _ in range(len(friends))]
@@ -47,3 +47,4 @@ def plot_graph(user_id: int) -> None:
     pal = igraph.drawing.colors.ClusterColoringPalette(len(clusters))
     g.vs['color'] = pal.get_many(clusters.membership)
     igraph.plot(g, **visual_style)
+

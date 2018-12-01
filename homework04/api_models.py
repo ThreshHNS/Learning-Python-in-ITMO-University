@@ -19,9 +19,9 @@ class User(BaseUser):
 class Message(BaseModel):
     """ Модель сообщения """
     id: int
-    body: Optional[str]
-    user_id: Optional[str]
+    peer_id: int
+    from_id: Optional[str]
     date: float
-    read_state: Optional[int]
-    out: int
-    attachments: Optional[list]
+    text: str
+    random_id: int
+    important: bool

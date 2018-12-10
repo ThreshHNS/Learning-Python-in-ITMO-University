@@ -4,13 +4,12 @@ import telebot
 from datetime import datetime, time, date
 from bs4 import BeautifulSoup
 from typing import Optional, Tuple
-from telebot import apihelper
 
-apihelper.proxy = {'https': 'socks5://telegram:telegram@sr.spry.fail:1080'}
 week_days = ['/monday', '/tuesday', '/wednesday',
              '/thursday', '/friday', '/saturday', '/sunday']
 name_days = ['Понедельник', 'Вторник', 'Среда',
              'Четверг', 'Пятница', 'Суббота', 'Воскресенье']
+             
 bot = telebot.TeleBot(config.access_token)
 
 

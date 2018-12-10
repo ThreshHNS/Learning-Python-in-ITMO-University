@@ -3,7 +3,7 @@ import config
 import telebot
 from datetime import datetime, time, date
 from bs4 import BeautifulSoup
-from typing import Optional, Tuple
+from typing import Tuple
 
 week_days = ['/monday', '/tuesday', '/wednesday',
              '/thursday', '/friday', '/saturday', '/sunday']
@@ -23,7 +23,7 @@ def get_page(group: str, week: str='') -> str:
     return web_page
 
 
-def parse_schedule_for_a_day(web_page, day_number: str) -> Optional[tuple]:
+def parse_schedule_for_a_day(web_page, day_number: str) -> Tuple[list, list, list]:
     soup = BeautifulSoup(web_page, "html5lib")
 
     # Получаем таблицу с расписанием

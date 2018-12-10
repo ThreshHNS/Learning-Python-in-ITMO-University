@@ -24,7 +24,7 @@ def get_page(group: str, week: str='') -> str:
 
 
 def parse_schedule_for_a_day(web_page, day_number: str) -> Optional[tuple]:
-    soup = BeautifulSoup(web_page, "html5lib")
+    soup = BeautifulSoup(web_page, "html.parser")
 
     # Получаем таблицу с расписанием
     schedule_table = soup.find("table", attrs={"id": day_number + "day"})
@@ -158,4 +158,5 @@ def get_all_schedule(message):
 
 
 if __name__ == '__main__':
+    bot.remove_webhook()
     bot.polling(none_stop=True)

@@ -81,6 +81,5 @@ if __name__ == '__main__':
     x_train = [clean(news.title) for news in labeled_news]
     y_train = [news.label for news in labeled_news]
     classifier = NaiveBayesClassifier()
-    print(classifier.fit(x_train, y_train))
     classifier.fit(x_train, y_train)
     run(host="localhost", port=8080)

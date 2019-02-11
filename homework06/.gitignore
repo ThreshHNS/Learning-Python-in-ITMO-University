@@ -111,4 +111,4 @@ venv.bak/
 test.py
 main.py
 news.db
-
+*.db

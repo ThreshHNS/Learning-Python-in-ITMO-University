@@ -36,12 +36,13 @@ def add_label():
 
 @route("/update")
 def update_news():
-    news = get_news("https://news.ycombinator.com/newest", n_pages=30)
     s = session()
-    for item in news:
-        if s.query(News).filter(News.title == item['title'], News.author == item['author']).first():
-            break
-        else:
+    latest_news = get_news("https://news.ycombinator.com/newest", n_pages=5)
+    authors = [news['author'] for news in latest_news]
+    titles = s.query(News.title).filter(News.author.in_(authors)).subquery()
+    existing_news = s.query(News).filter(News.title.in_(titles)).all()
+    for item in latest_news:
+        if not existing_news or item not in existing_news:
             s.add(News(**item))
     s.commit()
     redirect("/news")
@@ -61,7 +62,7 @@ def classify_news():
         [prediction] = classifier.predict([clean(row.title)])
         if prediction == 'good':
             good.append(row)
-        elif prediction == "maybe":
+        elif prediction == 'maybe':
             maybe.append(row)
         else:
             never.append(row)

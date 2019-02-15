@@ -10,7 +10,6 @@ import string
 
 @route('/static/<filename>')
 def server_static(filename):
-    print(filename)
     return static_file(filename, root='static')
 
 

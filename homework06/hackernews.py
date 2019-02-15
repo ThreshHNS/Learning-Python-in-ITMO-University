@@ -28,7 +28,7 @@ def news_list():
 @route("/add_label/")
 def add_label():
     s = session()
-    rnews = s.query(News).filter(News.id == request.query.id).first()
+    rnews = s.query(News).filter(News.id == request.query.id).one()
     rnews.label = request.query.label
     s.commit()
     redirect("/news")

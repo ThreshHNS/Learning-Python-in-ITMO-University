@@ -54,43 +54,36 @@ class NaiveBayesClassifier:
 
     def predict(self, X):
         """ Perform labelification on an array of test vectors X. """
-        answers_lst = []
+        words = X.split()
+        likely_labels = []
 
-        for sentence in X:
-            words = sentence.split()
-            likely_labels = []
+        for cur_label in self.model['labels']:
+            likelihood = self.model['labels'][cur_label]['likelihood']
 
-            for cur_label in self.model['labels']:
+            # Calculating lnP(C)
+            total_score = math.log(likelihood, math.e)
 
-                likelihood = self.model['labels'][cur_label]['likelihood']
+            for word in words:
+                word_dict = self.model['words'].get(word, None)
+                if word_dict:
+                    # Calcuting the sum of lnP(wi|C)
+                    total_score += math.log(word_dict[cur_label], math.e)
 
-                # Calculating lnP(C)
-                total_score = math.log(likelihood, math.e)
+            likely_labels.append((total_score, cur_label))
+        # Maximum value between lnP(label|D)
+        _, answer = max(likely_labels)
 
-                for word in words:
-                    word_dict = self.model['words'].get(word, None)
-
-                    if word_dict:
-                        # Calcuting the sum of lnP(wi|C)
-                        total_score += math.log(word_dict[cur_label], math.e)
-
-                likely_labels.append((total_score, cur_label))
-
-            # Maximum value between lnP(label|D)
-            _, answer = max(likely_labels)
-            answers_lst.append(answer)
-
-        return answers_lst
+        return answer
 
     def score(self, X_test, y_test):
         """ Returns the mean accuracy on the given test data and labels. """
-        count = len(y_test)
         correct = 0
-        for i, answer in enumerate(self.predict(X_test)):
+        for i in range(len(X_test)):
+            answer = self.predict(X_test[i])
             if answer == y_test[i]:
                 correct += 1
 
-        return correct / count
+        return correct / len(y_test)
 
     def smoothing_likelihood(self, word, cur_label):
         """ Returns the smoothed likelihood with the given word and label in loop. """
